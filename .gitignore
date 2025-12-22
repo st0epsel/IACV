@@ -1,0 +1,12 @@
+ex0_python_tutorial/*
+ex1_stereo_vision/*
+ex1_image_compression/__pycache__/*
+ex1_image_compression/.idea/*
+ex1_image_compression/.venv/*
+ex2_image_segmentation/__pycache__/*
+ex2_image_segmentation/.idea/*
+ex2_image_segmentation/.venv/*
+ex3_stereo_vision/__pycache__/*
+ex3_stereo_vision/.idea/*
+ex3_stereo_vision/.venv/*
+ex3_stereo_vision/valid/*
