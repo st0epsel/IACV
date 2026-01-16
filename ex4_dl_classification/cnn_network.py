@@ -18,17 +18,49 @@ class CNN(nn.Module):
     """
 
     def __init__(self):
-        """Initialize layers."""
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
-        self.pool = nn.MaxPool2d(8, 8)
-        self.fc1 = nn.Linear(6 * 5 * 5, 6)
+        
+        # ---------------------------------------------------------
+        # 1. The Feature Extractor ("The Eye")
+        # ---------------------------------------------------------
+        self.features = nn.Sequential(
+            # Block 1: Input 3x50x50 -> Output 32x25x25
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1),
+            nn.BatchNorm2d(32), # Optional: Helps training stabilize faster
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            
+            # Block 2: Input 32x25x25 -> Output 64x12x12
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            
+            # Block 3: Input 64x12x12 -> Output 128x6x6
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
+            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, padding=1),
+            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        
+        # ---------------------------------------------------------
+        # 2. The Classifier ("The Brain")
+        # ---------------------------------------------------------
+        # Calculation: 128 channels * 6 width * 6 height = 4608
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(128 * 6 * 6, 512), # Dense layer
+            nn.ReLU(),
+            nn.Dropout(0.5),             # Prevents overfitting
+            nn.Linear(512, 6)            # Output layer (6 classes)
+        )
 
     def forward(self, x):
-        """Forward pass of network."""
-        x = self.pool(self.conv1(x))
-        x = torch.flatten(x, 1) # flatten all dimensions except batch
-        x = self.fc1(x)
+        x = self.features(x)
+        x = self.classifier(x)
         return x
 
     def write_weights(self, fname):
