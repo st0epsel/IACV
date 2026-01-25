@@ -99,7 +99,6 @@ Output: Binary segmentation mask
 The algorithm demonstrates robust performance on diverse image types with minimal user input required. Example workflow and results:
 
 ![Example Scribbles](ex2_segmentation/example/scribble_sample.png)
-![Output Mask](ex2_segmentation/example/output_mask.png)
 ![Figure 2](ex2_segmentation/example/Figure_2.png)
 
 #### Algorithm Performance:
