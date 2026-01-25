@@ -25,7 +25,7 @@ class FS(IntEnum):
 
 
 class ImageSegmenter:
-    def __init__(self, mode='kmeans'):
+    def __init__(self, k_fg, k_bg, mode='kmeans'):
         """ Feel free to add any hyperparameters to the ImageSegmenter.
 
             But note:
@@ -33,6 +33,8 @@ class ImageSegmenter:
             In particular the segmetation will likely crash, if no defaults are set.
         """
         self.mode = mode
+        self.k_fg = k_fg
+        self.k_bg = k_bg
 
         # During evaluation, this will be replaced by a generator with different
         # random seeds. Use this generator, whenever you require random numbers,

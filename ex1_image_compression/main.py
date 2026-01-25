@@ -10,8 +10,8 @@ from image_compressor import ImageCompressor, ImageReconstructor
 from helper_fcts import load_image, show_images, median_filter, binning_filter, masking_filter
 
 
-iacv_path = Path('C:/Users/tovon/IACV/ex1_image_compression')
-data_path = Path('C:/Users/tovon/IACV/ex1_image_compression/data')
+iacv_path = Path('C:/Users/tovon/projects/IACV/ex1_image_compression')
+data_path = iacv_path / 'data'
 
 
 # Add the handout folder to python paths
